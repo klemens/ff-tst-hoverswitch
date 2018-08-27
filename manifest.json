@@ -1,0 +1,13 @@
+{
+    "manifest_version": 2,
+    "name": "TST Hoverswitch",
+    "version": "0.0.1",
+
+    "description": "Switch to hovered tab in TreeStyleTabs.",
+
+    "background": {
+        "scripts": [
+            "background.js"
+        ]
+    }
+}
