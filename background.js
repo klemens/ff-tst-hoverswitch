@@ -54,9 +54,7 @@ browser.runtime.onMessageExternal.addListener(async (message, sender) => {
             stopTimer();
 
             let tab = message.tab;
-            if(!tab.states.includes("active")) {
-                startTimer(tab.id);
-            }
+            startTimer(tab.id);
             break;
 
         case "tab-mouseout":
