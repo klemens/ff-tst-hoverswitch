@@ -3,6 +3,11 @@
     "name": "TST Hoverswitch",
     "version": "0.0.1",
 
+    "developer": {
+        "name": "Klemens Schölhorn",
+        "url": "https://klemens.schoelhorn.eu/"
+    },
+
     "description": "Switch to hovered tab in TreeStyleTabs.",
 
     "background": {
