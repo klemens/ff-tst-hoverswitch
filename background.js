@@ -1,3 +1,5 @@
+// Delay in ms before switching to hovered tab
+const DELAY = 100;
 const TST_ID = "treestyletab@piro.sakura.ne.jp";
 
 async function registerToTST() {
@@ -12,16 +14,13 @@ async function registerToTST() {
 }
 
 async function activateTab(tab) {
-    timer = null;
-
     try {
-        console.log("switch to " + tab);
         await browser.runtime.sendMessage(TST_ID, {
             type: "focus",
             tab: tab
         });
     } catch(e) {
-        console.log("tab vanished..." + e);
+        // Happens when the tab is closed during the timeout
     }
 }
 
@@ -32,7 +31,7 @@ function startTimer(tab) {
         timer = null;
         await activateTab(tab);
     };
-    timer = setTimeout(callback, 100);
+    timer = setTimeout(callback, DELAY);
 }
 function stopTimer() {
     if(timer !== null) {
@@ -46,26 +45,25 @@ browser.runtime.onMessageExternal.addListener(async (message, sender) => {
         return;
     }
 
-    let tab = message.tab;
     switch (message.type) {
         case "ready":
             registerToTST();
             break;
+
         case "tab-mouseover":
-            console.log("enter tab " + tab.id + ": " + tab.title);
-
             stopTimer();
-            if(tab.states.includes("active")) {
-                break;
-            }
-            startTimer(tab.id);
-            break;
-        case "tab-mouseout":
-            console.log("leave tab " + tab.id);
 
+            let tab = message.tab;
+            if(!tab.states.includes("active")) {
+                startTimer(tab.id);
+            }
+            break;
+
+        case "tab-mouseout":
             stopTimer();
             break;
     }
 });
 
+// Register directly in case we are activated after TST
 registerToTST();
