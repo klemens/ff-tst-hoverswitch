@@ -6,13 +6,19 @@ const TST_ID = "treestyletab@piro.sakura.ne.jp";
 
 async function registerToTST() {
     try {
-        var success = await browser.runtime.sendMessage(TST_ID, {
+        const self = await browser.management.getSelf();
+        await browser.runtime.sendMessage(TST_ID, {
             type: "register-self",
-            listeningTypes: ["tab-mouseover", "tab-mouseout"]
+            name: self.id,
+            listeningTypes: ["ready", "tab-mouseover", "tab-mouseout"]
         });
     } catch(e) {
         // Could not register
+        console.log("Could not register to TST")
+        return false;
     }
+
+    return true;
 }
 
 async function activateTab(tab) {
