@@ -8,7 +8,13 @@
         "url": "https://klemens.schoelhorn.eu/"
     },
 
-    "description": "Switch to hovered tab in TreeStyleTabs.",
+    "description": "Switch to hovered tab in Tree Style Tab.",
+
+    "applications": {
+        "gecko": {
+            "id": "tst-hoverswitch@klemens.io"
+        }
+    },
 
     "background": {
         "scripts": [
