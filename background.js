@@ -1,3 +1,5 @@
+"use strict";
+
 // Delay in ms before switching to hovered tab
 const DELAY = 100;
 const TST_ID = "treestyletab@piro.sakura.ne.jp";
